@@ -9,5 +9,5 @@
 import { send } from "../../core/utils/api";
 
 export default function( oRequest, oResponse ) {
-    send( oResponse, oRequest, true );
+    send( oRequest, oResponse, true );
 }

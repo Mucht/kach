@@ -9,5 +9,5 @@
 import { send } from "../../core/utils/api";
 
 export default function( oRequest, oResponse ) {
-    send( oResponse, oRequest, { "message": "There is an error!" } );
+    send( oRequest, oResponse, { "message": "There is an error!" } );
 }
