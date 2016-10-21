@@ -13,7 +13,11 @@
 var
     gulp = require( "gulp" ),
     gEslint = require( "gulp-eslint" ),
-    babel = require("gulp-babel");
+    gBabel = require( "gulp-babel" ),
+    gUtil = require( "gulp-util" ),
+    Mongo = require( "mongodb" ),
+    ObjectID = Mongo.ObjectID,
+    MongoClient = Mongo.MongoClient;
 
 gulp.task( "lint", function(){
     return gulp
@@ -23,10 +27,17 @@ gulp.task( "lint", function(){
 } );
 
 gulp.task( "build", function(){
-  return gulp
-    .src( "src/**/*.js" )
-    .pipe( babel() )
-    .pipe( gulp.dest( "bin" ) );
+    return gulp
+        .src( "src/**/*.js" )
+        .pipe( babel() )
+        .pipe( gulp.dest( "bin" ) );
+} );
+
+gulp.task( "reset-db", function( fNext ){
+    // 1. verify that we are INSIDE the vagrant
+    // 2. drop database
+    // 3. parse & fill banks
+    // 4. parse & fill terminals
 } );
 
 gulp.task( "watch", function(){
