@@ -6,13 +6,8 @@
  * started at 21/10/2016
 */
 
+import { send } from "../../core/utils/api";
+
 export default function( oRequest, oResponse ) {
-    oResponse.status( 500 ).json( {
-        "url": oRequest.url,
-        "timestamp": Date.now(),
-        "data": false,
-        "error": {
-            "message": "There is an error!",
-        },
-    } );
+    send( oResponse, oRequest, { "message": "There is an error!" } );
 }
