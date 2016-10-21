@@ -29,7 +29,7 @@ gulp.task( "lint", function(){
 gulp.task( "build", function(){
     return gulp
         .src( "src/**/*.js" )
-        .pipe( babel() )
+        .pipe( gBabel() )
         .pipe( gulp.dest( "bin" ) );
 } );
 
