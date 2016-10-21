@@ -1,0 +1,18 @@
+{
+  "name": "kach",
+  "version": "0.0.1",
+  "description": "projet API kach",
+  "main": "bin/server.js",
+  "repository": {
+    "url": "https://github.com/Mucht/kach.git",
+    "type": "git"
+  },
+  "author": "Mathieu Claessens <mathieu_claessens@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1"
+  }
+}
