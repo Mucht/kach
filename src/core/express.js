@@ -12,6 +12,7 @@ import responseTime from "response-time";
 import mitanEko from "mitan-eko";
 import zouti from "zouti";
 import systemRoutes from "../routes/system";
+import banksRoutes from "../routes/banks";
 
 const APP_PORT = "12345";
 
@@ -35,6 +36,7 @@ fInit = function( iAppPort = APP_PORT ) {
 
     // routes
     oApp.use( systemRoutes );
+    oApp.use( banksRoutes );
 
     // Listening
     oApp.listen( iAppPort, () => {
