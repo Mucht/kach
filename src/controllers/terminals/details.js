@@ -10,17 +10,18 @@ import getTerminals from "../../models/terminals";
 import { send, error } from "../../core/utils/api";
 import { ObjectID } from "mongodb";
 import distance from "jeyo-distans";
+import checkPosition from "../../core/utils/position"
 
 export default function( oRequest, oResponse ) {
 
     let sTerminalID = ( oRequest.params.id || "" ).trim(),
-        iLatitude = +oRequest.query.latitude,
-        iLongitude = +oRequest.query.longitude,
         oCurrentPosition;
 
     if ( !sTerminalID ) {
         error( oRequest, oResponse, "Invalid ID", 400 );
     }
+
+    oCurrentPosition = checkPosition( +oRequest.query.latitude, +oRequest.query.longitude );
 
     getTerminals()
         .findOne( {
@@ -33,13 +34,6 @@ export default function( oRequest, oResponse ) {
 
             if ( !_id ) {
                 return error( oRequest, oResponse, "Unknown Terminal", 404 );
-            }
-
-            if ( !isNaN( iLatitude ) && !isNaN( iLongitude ) ) {
-                oCurrentPosition = {
-                    "latitude": iLatitude,
-                    "longitude": iLongitude,
-                };
             }
 
             oCleanedTerminal = {
