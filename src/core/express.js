@@ -13,6 +13,7 @@ import mitanEko from "mitan-eko";
 import zouti from "zouti";
 import systemRoutes from "../routes/system";
 import banksRoutes from "../routes/banks";
+import terminalsRoutes from "../routes/terminals";
 
 const APP_PORT = "12345";
 
@@ -37,6 +38,7 @@ fInit = function( iAppPort = APP_PORT ) {
     // routes
     oApp.use( systemRoutes );
     oApp.use( banksRoutes );
+    oApp.use( terminalsRoutes );
 
     // Listening
     oApp.listen( iAppPort, () => {
