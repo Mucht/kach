@@ -10,7 +10,7 @@ import getTerminals from "../../models/terminals";
 import { send, error } from "../../core/utils/api";
 import { ObjectID } from "mongodb";
 import distance from "jeyo-distans";
-import checkPosition from "../../core/utils/position"
+import checkPosition from "../../core/utils/position";
 
 export default function( oRequest, oResponse ) {
 
@@ -28,13 +28,14 @@ export default function( oRequest, oResponse ) {
             "_id": new ObjectID( sTerminalID ),
             "deleted_at": null,
         } )
-        .then( ( { _id, bank, latitude, longitude, address, empty } ) => {
+        .then( ( oTerminal ) => {
 
-            let oCleanedTerminal;
-
-            if ( !_id ) {
+            if ( !oTerminal ) {
                 return error( oRequest, oResponse, "Unknown Terminal", 404 );
             }
+
+            let { _id, bank, latitude, longitude, address, empty } = oTerminal,
+                oCleanedTerminal;
 
             oCleanedTerminal = {
                 "id": _id,
