@@ -28,7 +28,7 @@ fInit = function( iAppPort = APP_PORT ) {
 
     oApp = express();
 
-    // config middlewares
+    // Config middlewares
     oApp.use( mitanEko( "kach" ) );
     oApp.use( responseTime() );
     oApp.use( bodyParser.json() );
@@ -36,7 +36,11 @@ fInit = function( iAppPort = APP_PORT ) {
         "extended": true,
     } ) );
 
-    // routes
+    // Config tamplates
+    oApp.set( "views", `${ __dirname }/../views` );
+    oApp.set( "view engine", "pug" );
+
+    // Routes
     oApp.use( systemRoutes );
     oApp.use( banksRoutes );
     oApp.use( terminalsRoutes );
