@@ -59,16 +59,39 @@ export default function( oRequest, oResponse ) {
         .toArray()
         .then( ( aTerminals = [] ) => {
 
-            let aCleanedTerminals;
+            let aCleanedTerminals,
+                aTerminalsToReset = [];
+
+            // clear empty state on terminals
 
             // 1. Compute distances
             // 3. Clean useless properties
-            aCleanedTerminals = aTerminals.map( ( { _id, bank, latitude, longitude, address, empty } ) => ( {
-                "id": _id,
-                "empty": !!empty,
-                "distance": distance( oCurrentPosition, { latitude, longitude } ) * 1000,
-                bank, latitude, longitude, address,
-            } ) );
+            aCleanedTerminals = aTerminals.map( ( { _id, bank, latitude, longitude, address, empty, updated_at } ) => {
+                let bEmptyState = empty;
+
+                if ( Date.now() - ( new Date( updated_at ) ).getTime() > 24 * 3600 * 1000 && empty ) {
+                    bEmptyState = false;
+                    aTerminalsToReset.push( _id );
+                }
+
+                return {
+                    "id": _id,
+                    "empty": !!bEmptyState,
+                    "distance": distance( oCurrentPosition, { latitude, longitude } ) * 1000,
+                    bank,
+                    latitude,
+                    longitude,
+                    address,
+                };
+            } );
+
+            getTerminals()
+                .update( {
+                    "_id": { "$in": aTerminalsToReset },
+                }, {
+                    "$set": { "empty": false, "updated_at": new Date() },
+                } );
+
             // 2. Sort by distances
             aCleanedTerminals.sort( ( oTerminalOne, oTerminalTwo ) => oTerminalOne.distance - oTerminalTwo.distance );
 
