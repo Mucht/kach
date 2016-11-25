@@ -33,6 +33,12 @@ gulp.task( "build", function(){
         .pipe( gulp.dest( "bin" ) );
 } );
 
+gulp.task( "views", function(){
+    return gulp
+        .src( "src/views/**" )
+        .pipe( gulp.dest( "bin/views" ) );
+} );
+
 gulp.task( "reset-db", function( fNext ){
     // 0. verify that we are INSIDE the vagrant
     if ( process.env.USER !== "vagrant" ) {
@@ -97,8 +103,9 @@ gulp.task( "reset-db", function( fNext ){
 
 gulp.task( "watch", function(){
     gulp.watch( "src/**/*.js", [ "build" ] );
+    gulp.watch( "src/views/**", [ "views" ] );
 } );
 
-gulp.task( "default", [ "build" ] );
+gulp.task( "default", [ "build", "views" ] );
 
-gulp.task( "work", [ "build", "watch" ] );
+gulp.task( "work", [ "build", "views", "watch" ] );
