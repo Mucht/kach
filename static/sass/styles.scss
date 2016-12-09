@@ -1,0 +1,21 @@
+/* ria/kach
+ *
+ * static/sass/settings/styles.scss - Main stylesheet
+ *
+ * coded by Mucht
+ * Started at 09/12/2016
+*/
+
+@import "bourbon";
+
+body{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+figure{
+    img{
+        width: 500px;
+    }
+}
