@@ -36,6 +36,8 @@ fInit = function( iAppPort = APP_PORT ) {
         "extended": true,
     } ) );
 
+    oApp.use( express.static( `${ __dirname }/../../static` ) );
+
     // Config tamplates
     oApp.set( "views", `${ __dirname }/../views` );
     oApp.set( "view engine", "pug" );
