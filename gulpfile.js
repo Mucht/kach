@@ -20,6 +20,9 @@ var
     browserify = require( "browserify" ),
     babelify = require( "babelify" ),
     sourceStream = require( "vinyl-source-stream" ),
+    buffer = require( "vinyl-buffer" ),
+    gRename = require( "gulp-rename" ),
+    gUglify = require( "gulp-uglify" ),
     ObjectID = Mongo.ObjectID,
     MongoClient = Mongo.MongoClient;
 
@@ -123,6 +126,10 @@ gulp.task( "modules", function(){
         } )
         .bundle()
         .pipe( sourceStream( "app.js" ) )
+        .pipe( gulp.dest( "static/js/" ) )
+        .pipe( buffer() )
+        .pipe( gRename( "app.min.js" ) )
+        .pipe( gUglify().on( "error", console.log ) )
         .pipe( gulp.dest( "static/js/" ) );
 } );
 
